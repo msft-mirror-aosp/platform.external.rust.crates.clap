@@ -1,0 +1,19 @@
+name: clap
+description: "A simple to use, efficient, and full-featured Command Line Argument Parser"
+third_party {
+  url {
+    type: HOMEPAGE
+    value: "https://crates.io/crates/clap"
+  }
+  url {
+    type: GIT
+    value: "https://github.com/clap-rs/clap"
+  }
+  version: "2.33.0"
+  license_type: NOTICE
+  last_upgrade_date {
+    year: 2020
+    month: 5
+    day: 6
+  }
+}
