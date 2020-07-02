@@ -2,7 +2,6 @@
 
 rust_library_host_rlib {
     name: "libclap",
-    deny_warnings: false,
     crate_name: "clap",
     srcs: ["src/lib.rs"],
     edition: "2015",
