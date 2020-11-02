@@ -426,7 +426,7 @@ macro_rules! arg_enum {
 #[macro_export]
 macro_rules! crate_version {
     () => {
-        env!("CARGO_PKG_VERSION")
+        "2.33.0"
     };
 }
 
@@ -472,7 +472,7 @@ macro_rules! crate_authors {
 
                 unsafe {
                     ONCE.call_once(|| {
-                        let s = env!("CARGO_PKG_AUTHORS").replace(':', $sep);
+                        let s = ["Kevin K. <kbknapp@gmail.com>"].join(":").replace(':', $sep);
                         VALUE = Box::into_raw(Box::new(s));
                     });
 
@@ -484,7 +484,7 @@ macro_rules! crate_authors {
         &*CargoAuthors { __private_field: () }
     }};
     () => {
-        env!("CARGO_PKG_AUTHORS")
+        ["Kevin K. <kbknapp@gmail.com>"].join(":")
     };
 }
 
@@ -506,7 +506,7 @@ macro_rules! crate_authors {
 #[macro_export]
 macro_rules! crate_description {
     () => {
-        env!("CARGO_PKG_DESCRIPTION")
+        "A simple to use, efficient, and full-featured Command Line Argument Parser\n"
     };
 }
 
@@ -527,7 +527,7 @@ macro_rules! crate_description {
 #[macro_export]
 macro_rules! crate_name {
     () => {
-        env!("CARGO_PKG_NAME")
+        "clap"
     };
 }
 
