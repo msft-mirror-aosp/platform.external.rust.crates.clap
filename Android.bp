@@ -17,4 +17,4 @@ rust_library {
 // dependent_library ["feature_list"]
 //   bitflags-1.2.1 "default"
 //   textwrap-0.11.0
-//   unicode-width-0.1.7 "default"
+//   unicode-width-0.1.8 "default"
