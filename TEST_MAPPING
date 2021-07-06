@@ -5,7 +5,7 @@
       "name": "keystore2_test"
     },
     {
-      "name": "vpnprofilestore_test"
+      "name": "legacykeystore_test"
     },
     {
       "name": "libsqlite3-sys_device_test_src_lib"
