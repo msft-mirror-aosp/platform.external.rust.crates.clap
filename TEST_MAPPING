@@ -28,6 +28,9 @@
       "name": "authfs_device_test_src_lib"
     },
     {
+      "name": "diced_test"
+    },
+    {
       "name": "keystore2_test"
     },
     {
@@ -35,9 +38,6 @@
     },
     {
       "name": "legacykeystore_test"
-    },
-    {
-      "name": "open_then_run_module"
     }
   ],
   "presubmit-rust": [
@@ -51,6 +51,9 @@
       "name": "authfs_device_test_src_lib"
     },
     {
+      "name": "diced_test"
+    },
+    {
       "name": "keystore2_test"
     },
     {
@@ -58,9 +61,6 @@
     },
     {
       "name": "legacykeystore_test"
-    },
-    {
-      "name": "open_then_run_module"
     }
   ]
 }
