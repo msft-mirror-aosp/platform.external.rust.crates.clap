@@ -1,0 +1,46 @@
+From d5f0de17a2fa86f54ac472e8a6db701bbecff5ee Mon Sep 17 00:00:00 2001
+From: Andrew Scull <ascull@google.com>
+Date: Wed, 25 May 2022 12:46:19 +0000
+Subject: [PATCH] Export Indices type
+
+The Indices type is used in the public API of the library but the type
+itself isn't exported. Fix that while we wait for AOSP to upgrade to the
+newest version of the library which has already sorted this problem.
+
+Bug: 229854484
+Test: build
+Change-Id: I58d14fdcb8306feeb87aff8aa9bdac425e89c9b2
+---
+ src/args/mod.rs | 2 +-
+ src/lib.rs      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/args/mod.rs b/src/args/mod.rs
+index 8f076ea..a30f357 100644
+--- a/src/args/mod.rs
++++ b/src/args/mod.rs
+@@ -2,7 +2,7 @@ pub use self::any_arg::{AnyArg, DispOrder};
+ pub use self::arg::Arg;
+ pub use self::arg_builder::{Base, FlagBuilder, OptBuilder, PosBuilder, Switched, Valued};
+ pub use self::arg_matcher::ArgMatcher;
+-pub use self::arg_matches::{ArgMatches, OsValues, Values};
++pub use self::arg_matches::{ArgMatches, Indices, OsValues, Values};
+ pub use self::group::ArgGroup;
+ pub use self::matched_arg::MatchedArg;
+ pub use self::settings::{ArgFlags, ArgSettings};
+diff --git a/src/lib.rs b/src/lib.rs
+index 7dbb0f0..876acb0 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -558,7 +558,7 @@ extern crate vec_map;
+ extern crate yaml_rust;
+ 
+ pub use app::{App, AppSettings};
+-pub use args::{Arg, ArgGroup, ArgMatches, ArgSettings, OsValues, SubCommand, Values};
++pub use args::{Arg, ArgGroup, ArgMatches, ArgSettings, Indices, OsValues, SubCommand, Values};
+ pub use completions::Shell;
+ pub use errors::{Error, ErrorKind, Result};
+ pub use fmt::Format;
+-- 
+2.36.1.124.g0e6072fb45-goog
+
