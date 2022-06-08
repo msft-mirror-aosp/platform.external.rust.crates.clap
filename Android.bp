@@ -31,6 +31,28 @@ license {
     ],
 }
 
+rust_test {
+    name: "clap_test_src_lib",
+    // has rustc warnings
+    host_supported: true,
+    crate_name: "clap",
+    cargo_env_compat: true,
+    cargo_pkg_version: "2.33.3",
+    srcs: ["src/lib.rs"],
+    test_suites: ["general-tests"],
+    auto_gen_config: true,
+    test_options: {
+        unit_test: true,
+    },
+    edition: "2015",
+    rustlibs: [
+        "libbitflags",
+        "liblazy_static",
+        "libregex",
+        "libtextwrap",
+    ],
+}
+
 rust_library {
     name: "libclap",
     // has rustc warnings
