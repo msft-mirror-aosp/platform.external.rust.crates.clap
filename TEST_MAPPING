@@ -17,47 +17,6 @@
       "path": "external/rust/crates/unicode-xid"
     }
   ],
-  "postsubmit": [
-    {
-      "name": "VtsAidlDiceDemoteTargetTest"
-    },
-    {
-      "name": "VtsAidlDiceTargetTest"
-    },
-    {
-      "name": "ZipFuseTest"
-    },
-    {
-      "name": "apkdmverity.test"
-    },
-    {
-      "name": "authfs_device_test_src_lib"
-    },
-    {
-      "name": "clap_test_src_lib"
-    },
-    {
-      "name": "diced_test"
-    },
-    {
-      "name": "keystore2_legacy_blobs_test"
-    },
-    {
-      "name": "keystore2_test"
-    },
-    {
-      "name": "keystore2_vintf_test"
-    },
-    {
-      "name": "legacykeystore_test"
-    },
-    {
-      "name": "libtombstoned_client_rust_test"
-    },
-    {
-      "name": "virtualizationservice_device_test"
-    }
-  ],
   "presubmit": [
     {
       "name": "VtsAidlDiceDemoteTargetTest"
