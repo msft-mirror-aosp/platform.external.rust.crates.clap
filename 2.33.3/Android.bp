@@ -32,7 +32,7 @@ license {
 }
 
 rust_test {
-    name: "clap_test_src_lib",
+    name: "clap_test_src_lib_deprecated",
     // has rustc warnings
     host_supported: true,
     crate_name: "clap",
@@ -54,7 +54,7 @@ rust_test {
 }
 
 rust_library {
-    name: "libclap",
+    name: "libclap_deprecated",
     // has rustc warnings
     host_supported: true,
     crate_name: "clap",
