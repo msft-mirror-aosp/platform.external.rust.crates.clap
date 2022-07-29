@@ -6,8 +6,6 @@
   ],
   "dependencies": true,
   "device": true,
-  "patch": "patches/Android.bp.patch",
-  "features": "",
-  "run": true,
-  "tests": true
+  "features": "std",
+  "run": true
 }
