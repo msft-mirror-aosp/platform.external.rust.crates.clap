@@ -34,7 +34,7 @@
       "name": "authfs_device_test_src_lib"
     },
     {
-      "name": "clap_test_src_lib"
+      "name": "clap_test_src_lib_deprecated"
     },
     {
       "name": "diced_test"
@@ -75,7 +75,7 @@
       "name": "authfs_device_test_src_lib"
     },
     {
-      "name": "clap_test_src_lib"
+      "name": "clap_test_src_lib_deprecated"
     },
     {
       "name": "diced_test"
