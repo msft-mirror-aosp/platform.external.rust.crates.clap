@@ -1,0 +1,12 @@
+diff --git a/Android.bp b/Android.bp
+index a4414a9..c190885 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -50,7 +50,6 @@ rust_test {
+         "liblazy_static",
+         "libregex",
+         "libtextwrap",
+-        "libversion_sync",
+     ],
+ }
+ 
