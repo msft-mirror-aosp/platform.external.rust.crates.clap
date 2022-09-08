@@ -6,6 +6,6 @@
   ],
   "dependencies": true,
   "device": true,
-  "features": "std",
+  "features": "std,derive",
   "run": true
 }
