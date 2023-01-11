@@ -47,6 +47,7 @@ rust_library {
     edition: "2021",
     features: [
         "derive",
+        "help",
         "std",
     ],
     rustlibs: [
@@ -72,6 +73,7 @@ rust_binary {
     edition: "2021",
     features: [
         "derive",
+        "help",
         "std",
     ],
     rustlibs: [
