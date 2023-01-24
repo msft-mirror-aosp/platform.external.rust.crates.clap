@@ -58,8 +58,7 @@ rust_library {
     proc_macros: ["libclap_derive"],
     apex_available: [
         "//apex_available:platform",
-        "com.android.compos",
-        "com.android.virt",
+        "//apex_available:anyapex",
     ],
 }
 
