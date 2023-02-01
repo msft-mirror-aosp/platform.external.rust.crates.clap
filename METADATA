@@ -1,3 +1,7 @@
+# This project was upgraded with external_updater.
+# Usage: tools/external_updater/updater.sh update rust/crates/clap
+# For more info, check https://cs.android.com/android/platform/superproject/+/master:tools/external_updater/README.md
+
 name: "clap"
 description: "A simple to use, efficient, and full-featured Command Line Argument Parser"
 third_party {
@@ -7,14 +11,13 @@ third_party {
   }
   url {
     type: ARCHIVE
-    value: "https://static.crates.io/crates/clap/clap-3.2.15.crate"
+    value: "https://static.crates.io/crates/clap/clap-4.0.29.crate"
   }
-  version: "3.2.15"
-  # Dual-licensed, using the least restrictive per go/thirdpartylicenses#same.
+  version: "4.0.29"
   license_type: NOTICE
   last_upgrade_date {
     year: 2022
-    month: 7
-    day: 28
+    month: 11
+    day: 30
   }
 }

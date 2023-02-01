@@ -1,11 +1,6 @@
 {
-  "apex-available": [
-    "//apex_available:platform",
-    "com.android.compos",
-    "com.android.virt"
-  ],
   "dependencies": true,
   "device": true,
-  "features": "std",
+  "features": "derive,help,std",
   "run": true
 }
