@@ -502,33 +502,35 @@ impl<'cmd> Parser<'cmd> {
             }
         }
 
-        let candidates = suggestions::did_you_mean(
-            &arg_os.display().to_string(),
-            self.cmd.all_subcommand_names(),
-        );
-        // If the argument looks like a subcommand.
-        if !candidates.is_empty() {
-            return ClapError::invalid_subcommand(
-                self.cmd,
-                arg_os.display().to_string(),
-                candidates,
-                self.cmd
-                    .get_bin_name()
-                    .unwrap_or_else(|| self.cmd.get_name())
-                    .to_owned(),
-                Usage::new(self.cmd).create_usage_with_title(&[]),
+        if !(self.cmd.is_args_conflicts_with_subcommands_set() && valid_arg_found) {
+            let candidates = suggestions::did_you_mean(
+                &arg_os.display().to_string(),
+                self.cmd.all_subcommand_names(),
             );
-        }
+            // If the argument looks like a subcommand.
+            if !candidates.is_empty() {
+                return ClapError::invalid_subcommand(
+                    self.cmd,
+                    arg_os.display().to_string(),
+                    candidates,
+                    self.cmd
+                        .get_bin_name()
+                        .unwrap_or_else(|| self.cmd.get_name())
+                        .to_owned(),
+                    Usage::new(self.cmd).create_usage_with_title(&[]),
+                );
+            }
 
-        // If the argument must be a subcommand.
-        if self.cmd.has_subcommands()
-            && (!self.cmd.has_positionals() || self.cmd.is_infer_subcommands_set())
-        {
-            return ClapError::unrecognized_subcommand(
-                self.cmd,
-                arg_os.display().to_string(),
-                Usage::new(self.cmd).create_usage_with_title(&[]),
-            );
+            // If the argument must be a subcommand.
+            if self.cmd.has_subcommands()
+                && (!self.cmd.has_positionals() || self.cmd.is_infer_subcommands_set())
+            {
+                return ClapError::unrecognized_subcommand(
+                    self.cmd,
+                    arg_os.display().to_string(),
+                    Usage::new(self.cmd).create_usage_with_title(&[]),
+                );
+            }
         }
 
         let suggested_trailing_arg = !trailing_values
@@ -893,8 +895,7 @@ impl<'cmd> Parser<'cmd> {
         debug_assert_eq!(
             res,
             Ok(()),
-            "tracking of `flag_subcmd_skip` is off for `{:?}`",
-            short_arg
+            "tracking of `flag_subcmd_skip` is off for `{short_arg:?}`"
         );
         while let Some(c) = short_arg.next_flag() {
             let c = match c {
@@ -980,7 +981,7 @@ impl<'cmd> Parser<'cmd> {
                 Ok(ParseResult::FlagSubCommand(name))
             } else {
                 Ok(ParseResult::NoMatchingArg {
-                    arg: format!("-{}", c),
+                    arg: format!("-{c}"),
                 })
             };
         }
@@ -1568,7 +1569,7 @@ impl<'cmd> Parser<'cmd> {
             did_you_mean.is_none() && !trailing_values && self.cmd.has_positionals();
         ClapError::unknown_argument(
             self.cmd,
-            format!("--{}", arg),
+            format!("--{arg}"),
             did_you_mean,
             suggested_trailing_arg,
             Usage::new(self.cmd)
