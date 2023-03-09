@@ -60,6 +60,8 @@ rust_library {
         "//apex_available:platform",
         "//apex_available:anyapex",
     ],
+    product_available: true,
+    vendor_available: true,
 }
 
 rust_binary {
@@ -82,4 +84,6 @@ rust_binary {
         "libonce_cell",
     ],
     proc_macros: ["libclap_derive"],
+    product_available: true,
+    vendor_available: true,
 }
