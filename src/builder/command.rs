@@ -243,7 +243,7 @@ impl Command {
         let a = self
             .args
             .remove_by_name(id)
-            .unwrap_or_else(|| panic!("Argument `{}` is undefined", id));
+            .unwrap_or_else(|| panic!("Argument `{id}` is undefined"));
 
         self.args.push(f(a));
         self
@@ -287,7 +287,7 @@ impl Command {
         let subcmd = if let Some(idx) = pos {
             self.subcommands.remove(idx)
         } else {
-            panic!("Command `{}` is undefined", name)
+            panic!("Command `{name}` is undefined")
         };
 
         self.subcommands.push(f(subcmd));
@@ -449,7 +449,7 @@ impl Command {
     ///
     /// fn main() {
     ///     let m = cmd().get_matches_from(vec!["foo", "-b"]);
-    ///     println!("{}", *m.get_one::<bool>("bar").expect("defaulted by clap"));
+    ///     println!("{}", m.get_flag("bar"));
     /// }
     /// ```
     pub fn debug_assert(mut self) {
@@ -487,7 +487,7 @@ impl Command {
     /// [`Command::try_get_matches_from_mut`]: Command::try_get_matches_from_mut()
     #[inline]
     pub fn get_matches(self) -> ArgMatches {
-        self.get_matches_from(&mut env::args_os())
+        self.get_matches_from(env::args_os())
     }
 
     /// Parse [`env::args_os`], exiting on failure.
@@ -545,7 +545,7 @@ impl Command {
     #[inline]
     pub fn try_get_matches(self) -> ClapResult<ArgMatches> {
         // Start the parsing
-        self.try_get_matches_from(&mut env::args_os())
+        self.try_get_matches_from(env::args_os())
     }
 
     /// Parse the specified arguments, exiting on failure.
@@ -822,7 +822,7 @@ impl Command {
         let mut styled = StyledStr::new();
         let usage = Usage::new(self);
         write_help(&mut styled, self, &usage, false);
-        ok!(write!(w, "{}", styled));
+        ok!(write!(w, "{styled}"));
         w.flush()
     }
 
@@ -837,7 +837,7 @@ impl Command {
         let mut styled = StyledStr::new();
         let usage = Usage::new(self);
         write_help(&mut styled, self, &usage, true);
-        ok!(write!(w, "{}", styled));
+        ok!(write!(w, "{styled}"));
         w.flush()
     }
 
@@ -963,7 +963,7 @@ impl Command {
     /// assert!(r.is_ok(), "unexpected error: {:?}", r);
     /// let m = r.unwrap();
     /// assert_eq!(m.get_one::<String>("config").unwrap(), "file");
-    /// assert!(*m.get_one::<bool>("f").expect("defaulted"));
+    /// assert!(m.get_flag("f"));
     /// assert_eq!(m.get_one::<String>("stuff"), None);
     /// ```
     #[inline]
@@ -1744,7 +1744,7 @@ impl Command {
     /// Valid tags are:
     ///
     ///   * `{name}`                - Display name for the (sub-)command.
-    ///   * `{bin}`                 - Binary name.
+    ///   * `{bin}`                 - Binary name.(deprecated)
     ///   * `{version}`             - Version number.
     ///   * `{author}`              - Author information.
     ///   * `{author-with-newline}` - Author followed by `\n`.
@@ -1760,7 +1760,7 @@ impl Command {
     ///   * `{options}`             - Help for options.
     ///   * `{positionals}`         - Help for positional arguments.
     ///   * `{subcommands}`         - Help for subcommands.
-    ///   * `{tag}`                 - Standard tab sized used within clap
+    ///   * `{tab}`                 - Standard tab sized used within clap
     ///   * `{after-help}`          - Help from [`Command::after_help`] or [`Command::after_long_help`].
     ///   * `{before-help}`         - Help from [`Command::before_help`] or [`Command::before_long_help`].
     ///
@@ -1772,7 +1772,7 @@ impl Command {
     /// # use clap::Command;
     /// Command::new("myprog")
     ///     .version("1.0")
-    ///     .help_template("{bin} ({version}) - {usage}")
+    ///     .help_template("{name} ({version}) - {usage}")
     /// # ;
     /// ```
     ///
@@ -1943,8 +1943,8 @@ impl Command {
     ///     .replace("--save-all", &["--save-context", "--save-runtime"])
     ///     .get_matches_from(vec!["cmd", "--save-all"]);
     ///
-    /// assert!(*m.get_one::<bool>("save-context").expect("defaulted by clap"));
-    /// assert!(*m.get_one::<bool>("save-runtime").expect("defaulted by clap"));
+    /// assert!(m.get_flag("save-context"));
+    /// assert!(m.get_flag("save-runtime"));
     /// ```
     ///
     /// This can also be used with options, for example if our application with
@@ -1969,8 +1969,8 @@ impl Command {
     ///     .replace("--save-all", &["--save-context", "--save-runtime", "--format=json"])
     ///     .get_matches_from(vec!["cmd", "--save-all"]);
     ///
-    /// assert!(*m.get_one::<bool>("save-context").expect("defaulted by clap"));
-    /// assert!(*m.get_one::<bool>("save-runtime").expect("defaulted by clap"));
+    /// assert!(m.get_flag("save-context"));
+    /// assert!(m.get_flag("save-runtime"));
     /// assert_eq!(m.get_one::<String>("format").unwrap(), "json");
     /// ```
     ///
@@ -2191,7 +2191,7 @@ impl Command {
     ///
     /// assert_eq!(matches.subcommand_name().unwrap(), "sync");
     /// let sync_matches = matches.subcommand_matches("sync").unwrap();
-    /// assert!(*sync_matches.get_one::<bool>("search").expect("defaulted by clap"));
+    /// assert!(sync_matches.get_flag("search"));
     /// ```
     /// [`Arg::short`]: Arg::short()
     #[must_use]
@@ -2228,7 +2228,7 @@ impl Command {
     ///
     /// assert_eq!(matches.subcommand_name().unwrap(), "sync");
     /// let sync_matches = matches.subcommand_matches("sync").unwrap();
-    /// assert!(*sync_matches.get_one::<bool>("search").expect("defaulted by clap"));
+    /// assert!(sync_matches.get_flag("search"));
     /// ```
     ///
     /// [`Arg::long`]: Arg::long()
@@ -2599,7 +2599,7 @@ impl Command {
     /// Set the placement of this subcommand within the help.
     ///
     /// Subcommands with a lower value will be displayed first in the help message.  Subcommands
-    /// with duplicate display orders will be displayed in alphabetical order.
+    /// with duplicate display orders will be displayed in order they are defined.
     ///
     /// This is helpful when one would like to emphasize frequently used subcommands, or prioritize
     /// those towards the top of the list.
@@ -2641,8 +2641,8 @@ impl Command {
     ///     alpha   Some help and text
     ///
     /// Options:
-    ///     -h, --help       Print help information
-    ///     -V, --version    Print version information
+    ///     -h, --help       Print help
+    ///     -V, --version    Print version
     /// ```
     #[inline]
     #[must_use]
@@ -3105,8 +3105,8 @@ impl Command {
     ///     sub1
     ///
     /// Options:
-    ///     -h, --help       Print help information
-    ///     -V, --version    Print version information
+    ///     -h, --help       Print help
+    ///     -V, --version    Print version
     /// ```
     ///
     /// but usage of `subcommand_value_name`
@@ -3132,8 +3132,8 @@ impl Command {
     ///     sub1
     ///
     /// Options:
-    ///     -h, --help       Print help information
-    ///     -V, --version    Print version information
+    ///     -h, --help       Print help
+    ///     -V, --version    Print version
     /// ```
     #[must_use]
     pub fn subcommand_value_name(mut self, value_name: impl IntoResettable<Str>) -> Self {
@@ -3169,8 +3169,8 @@ impl Command {
     ///     sub1
     ///
     /// Options:
-    ///     -h, --help       Print help information
-    ///     -V, --version    Print version information
+    ///     -h, --help       Print help
+    ///     -V, --version    Print version
     /// ```
     ///
     /// but usage of `subcommand_help_heading`
@@ -3196,8 +3196,8 @@ impl Command {
     ///     sub1
     ///
     /// Options:
-    ///     -h, --help       Print help information
-    ///     -V, --version    Print version information
+    ///     -h, --help       Print help
+    ///     -V, --version    Print version
     /// ```
     #[must_use]
     pub fn subcommand_help_heading(mut self, heading: impl IntoResettable<Str>) -> Self {
@@ -3947,22 +3947,22 @@ impl Command {
         sc_names.push_str(sc.name.as_str());
         let mut flag_subcmd = false;
         if let Some(l) = sc.get_long_flag() {
-            write!(sc_names, "|--{}", l).unwrap();
+            write!(sc_names, "|--{l}").unwrap();
             flag_subcmd = true;
         }
         if let Some(s) = sc.get_short_flag() {
-            write!(sc_names, "|-{}", s).unwrap();
+            write!(sc_names, "|-{s}").unwrap();
             flag_subcmd = true;
         }
 
         if flag_subcmd {
-            sc_names = format!("{{{}}}", sc_names);
+            sc_names = format!("{{{sc_names}}}");
         }
 
         let usage_name = self
             .bin_name
             .as_ref()
-            .map(|bin_name| format!("{}{}{}", bin_name, mid_string, sc_names))
+            .map(|bin_name| format!("{bin_name}{mid_string}{sc_names}"))
             .unwrap_or(sc_names);
         sc.usage_name = Some(usage_name);
 
@@ -4044,19 +4044,19 @@ impl Command {
                     sc_names.push_str(sc.name.as_str());
                     let mut flag_subcmd = false;
                     if let Some(l) = sc.get_long_flag() {
-                        write!(sc_names, "|--{}", l).unwrap();
+                        write!(sc_names, "|--{l}").unwrap();
                         flag_subcmd = true;
                     }
                     if let Some(s) = sc.get_short_flag() {
-                        write!(sc_names, "|-{}", s).unwrap();
+                        write!(sc_names, "|-{s}").unwrap();
                         flag_subcmd = true;
                     }
 
                     if flag_subcmd {
-                        sc_names = format!("{{{}}}", sc_names);
+                        sc_names = format!("{{{sc_names}}}");
                     }
 
-                    let usage_name = format!("{}{}{}", self_bin_name, mid_string, sc_names);
+                    let usage_name = format!("{self_bin_name}{mid_string}{sc_names}");
                     debug!(
                         "Command::_build_bin_names:iter: Setting usage_name of {} to {:?}",
                         sc.name, usage_name
@@ -4243,10 +4243,10 @@ impl Command {
                 .action(ArgAction::Help);
             if self.long_help_exists {
                 arg = arg
-                    .help("Print help information (use `--help` for more detail)")
-                    .long_help("Print help information (use `-h` for a summary)");
+                    .help("Print help (see more with '--help')")
+                    .long_help("Print help (see a summary with '-h')");
             } else {
-                arg = arg.help("Print help information");
+                arg = arg.help("Print help");
             }
             // Avoiding `arg_internal` to not be sensitive to `next_help_heading` /
             // `next_display_order`
@@ -4258,7 +4258,7 @@ impl Command {
                 .short('V')
                 .long("version")
                 .action(ArgAction::Version)
-                .help("Print version information");
+                .help("Print version");
             // Avoiding `arg_internal` to not be sensitive to `next_help_heading` /
             // `next_display_order`
             self.args.push(arg);
@@ -4334,7 +4334,7 @@ impl Command {
                 .unwrap_or_default()
         };
         let display_name = self.get_display_name().unwrap_or_else(|| self.get_name());
-        format!("{} {}\n", display_name, ver)
+        format!("{display_name} {ver}\n")
     }
 
     pub(crate) fn format_group(&self, g: &Id) -> StyledStr {
@@ -4593,12 +4593,14 @@ impl Command {
         // specified by the user is sent through. If hide_short_help is not included,
         // then items specified with hidden_short_help will also be hidden.
         let should_long = |v: &Arg| {
-            v.get_long_help().is_some()
-                || v.is_hide_long_help_set()
-                || v.is_hide_short_help_set()
-                || v.get_possible_values()
-                    .iter()
-                    .any(PossibleValue::should_show_help)
+            !v.is_hide_set()
+                && (v.get_long_help().is_some()
+                    || v.is_hide_long_help_set()
+                    || v.is_hide_short_help_set()
+                    || (!v.is_hide_possible_values_set()
+                        && v.get_possible_values()
+                            .iter()
+                            .any(PossibleValue::should_show_help)))
         };
 
         // Subcommands aren't checked because we prefer short help for them, deferring to
