@@ -47,8 +47,10 @@ rust_library {
     edition: "2021",
     features: [
         "derive",
+        "error-context",
         "help",
         "std",
+        "usage",
     ],
     rustlibs: [
         "libbitflags",
@@ -74,8 +76,10 @@ rust_binary {
     edition: "2021",
     features: [
         "derive",
+        "error-context",
         "help",
         "std",
+        "usage",
     ],
     rustlibs: [
         "libbitflags",
