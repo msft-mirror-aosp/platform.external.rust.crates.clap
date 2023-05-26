@@ -11,13 +11,13 @@ third_party {
   }
   url {
     type: ARCHIVE
-    value: "https://static.crates.io/crates/clap/clap-4.0.29.crate"
+    value: "https://static.crates.io/crates/clap/clap-4.1.8.crate"
   }
-  version: "4.0.29"
+  version: "4.1.8"
   license_type: NOTICE
   last_upgrade_date {
-    year: 2022
-    month: 11
-    day: 30
+    year: 2023
+    month: 3
+    day: 2
   }
 }
