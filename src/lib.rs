@@ -136,6 +136,9 @@ pub mod __macro_refs {
     pub use once_cell;
 }
 
+#[doc(hidden)]
+pub use __macro_refs as __derive_refs;
+
 #[macro_use]
 #[allow(missing_docs)]
 mod macros;
