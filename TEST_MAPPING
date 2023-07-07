@@ -2,65 +2,37 @@
 {
   "imports": [
     {
-      "path": "external/rust/crates/base64"
-    },
-    {
       "path": "external/rust/crates/libsqlite3-sys"
     },
     {
-      "path": "external/rust/crates/tinytemplate"
+      "path": "packages/modules/Virtualization/apkdmverity"
     },
     {
-      "path": "external/rust/crates/tinyvec"
+      "path": "packages/modules/Virtualization/authfs"
     },
     {
-      "path": "external/rust/crates/unicode-xid"
-    }
-  ],
-  "presubmit": [
-    {
-      "name": "ZipFuseTest"
+      "path": "packages/modules/Virtualization/avmd"
     },
     {
-      "name": "apkdmverity.test"
+      "path": "packages/modules/Virtualization/encryptedstore"
     },
     {
-      "name": "authfs_device_test_src_lib"
+      "path": "packages/modules/Virtualization/virtualizationmanager"
     },
     {
-      "name": "diced_test"
+      "path": "packages/modules/Virtualization/vm"
     },
     {
-      "name": "keystore2_test"
+      "path": "packages/modules/Virtualization/zipfuse"
     },
     {
-      "name": "keystore2_vintf_test"
+      "path": "system/security/diced"
     },
     {
-      "name": "legacykeystore_test"
-    }
-  ],
-  "presubmit-rust": [
-    {
-      "name": "ZipFuseTest"
+      "path": "system/security/keystore2"
     },
     {
-      "name": "apkdmverity.test"
-    },
-    {
-      "name": "authfs_device_test_src_lib"
-    },
-    {
-      "name": "diced_test"
-    },
-    {
-      "name": "keystore2_test"
-    },
-    {
-      "name": "keystore2_vintf_test"
-    },
-    {
-      "name": "legacykeystore_test"
+      "path": "system/security/keystore2/legacykeystore"
     }
   ]
 }
