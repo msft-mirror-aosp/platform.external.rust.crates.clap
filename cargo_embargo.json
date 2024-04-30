@@ -4,7 +4,6 @@
     "error-context",
     "help",
     "std",
-    "suggestions",
     "usage"
   ],
   "module_name_overrides": {
