@@ -1,6 +1,0 @@
-{
-  "dependencies": true,
-  "device": true,
-  "features": "derive,error-context,help,std,usage",
-  "run": true
-}
